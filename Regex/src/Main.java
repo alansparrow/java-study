@@ -1,5 +1,8 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +14,7 @@ public class Main {
         Matcher m = p.matcher(text);
         System.out.print(pStr + " matches " + text + "? " + m.find());
         System.out.println(" ; match: " + m.group());
-        
+
         pStr = "[a..zA..Z]"; //Any letter
         p = Pattern.compile(pStr);
         m = p.matcher(text);
@@ -33,5 +36,13 @@ public class Main {
         m = p.matcher(text);
         System.out.print(pStr + " matches " + text + "? " + m.find());
         System.out.println(" ; match: " + m.group());
+
+        pStr = "\\d"; // A numeric digit
+        p = Pattern.compile(pStr);
+        String[] inputs = {"Cat", "Dog", "Ice-9", "99 Luftballoons"};
+        List<String> ls = Arrays.asList(inputs);
+        List<String> containDigits = ls.stream()
+                .filter(p.asPredicate()).collect(Collectors.toList());
+        System.out.println(containDigits);
     }
 }
